@@ -30,6 +30,7 @@ async function bootstrap() {
     } else {
       process.exit(1);
     }
+    dsa;
   });
 }
 bootstrap();

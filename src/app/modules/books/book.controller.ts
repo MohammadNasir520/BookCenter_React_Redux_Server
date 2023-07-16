@@ -4,6 +4,18 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import httpStatus from 'http-status';
 
+const createBook = catchAsync(async (req: Request, res: Response) => {
+  const userData = req.body;
+
+  const result = await BookService.createBook(userData);
+  res.status(200).json({
+    success: true,
+    statusCode: 200,
+    message: 'user created successfully',
+    data: result,
+  });
+});
+
 const getAllBooks = catchAsync(async (req: Request, res: Response) => {
   const getAllBooks = await BookService.getAllBooks();
 
@@ -56,4 +68,5 @@ export const BookController = {
   getSingleBook,
   deleteSingleBook,
   updateBook,
+  createBook,
 };

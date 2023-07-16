@@ -19,6 +19,10 @@ const UserSchema = new Schema<IBook>(
       type: Date,
       required: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

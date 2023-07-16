@@ -1,20 +1,15 @@
 import { z } from 'zod';
 
-const UserSignUpZodSchema = z.object({
+const createBookZodSchema = z.object({
   body: z.object({
-    email: z.string({ required_error: 'phone number is required' }),
-    role: z.enum(['user', 'admin'], {
-      required_error: 'role is required and must be seller or buyer',
-    }),
-    password: z.string({ required_error: 'password is required' }),
-    name: z.object({
-      firstName: z.string({ required_error: 'First Name is required' }),
-      lastName: z.string({ required_error: 'Last Name is required' }),
-    }),
+    title: z.string({ required_error: 'title number is required' }),
+    author: z.string({ required_error: 'author is required' }),
+    genre: z.string({ required_error: 'genre is required' }),
     image: z.string({ required_error: 'image is required' }),
+    publicationDate: z.string({ required_error: 'date is required' }),
   }),
 });
 
-export const userValidation = {
-  UserSignUpZodSchema,
+export const bookValidation = {
+  createBookZodSchema,
 };

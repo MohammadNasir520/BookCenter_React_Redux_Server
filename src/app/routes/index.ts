@@ -2,6 +2,8 @@ import express from 'express';
 import { UserRoutes } from '../modules/user/user.route';
 
 import { UserAuth } from '../modules/userAuth/userAuth.route';
+import { BookRoutes } from '../modules/books/book.route';
+import { ReviewRoutes } from '../modules/reviews/review.route';
 
 // app.ts --> index.ts-->user.route.ts
 
@@ -15,6 +17,14 @@ const moduleRoutes = [
   {
     path: '/auth',
     route: UserAuth,
+  },
+  {
+    path: '/books',
+    route: BookRoutes,
+  },
+  {
+    path: '/reviews',
+    route: ReviewRoutes,
   },
 ];
 

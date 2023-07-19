@@ -9,8 +9,19 @@ import { ILoginUser } from './UserAuth.interface';
 import { jwtHelpers } from '../../helpers/jwtHelpers';
 
 const createUser = async (userData: IUser): Promise<Partial<IUser>> => {
-  const createUser = await User.create(userData);
+  console.log(userData);
+  const isExist = await User.findOne({ email: userData.email });
 
+  if (isExist) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'user already exist');
+  }
+  if (userData.password.length < 6) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'password should be at least 6 character'
+    );
+  }
+  const createUser = await User.create(userData);
   // eslint-disable-next-line no-unused-vars
   const { password, ...others } = createUser.toObject();
   return others;

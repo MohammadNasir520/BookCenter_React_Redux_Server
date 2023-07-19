@@ -7,9 +7,7 @@ import httpStatus from 'http-status';
 
 const signUp = catchAsync(async (req: Request, res: Response) => {
   const userData = req.body;
-
   const result = await UserAuthService.createUser(userData);
-
   res.status(200).json({
     success: true,
     statusCode: 200,

@@ -22,7 +22,7 @@ const getSingleReview = async (id: string) => {
   const getAllReviews = await Review.find({ book: id })
     .populate('user')
     .populate('book');
-  console.log(getAllReviews);
+
   return getAllReviews;
 };
 const deleteSingleReview = async (id: string) => {

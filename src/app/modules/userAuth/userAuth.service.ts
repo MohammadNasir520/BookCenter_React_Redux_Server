@@ -9,7 +9,6 @@ import { ILoginUser } from './UserAuth.interface';
 import { jwtHelpers } from '../../helpers/jwtHelpers';
 
 const createUser = async (userData: IUser): Promise<Partial<IUser>> => {
-  console.log(userData);
   const isExist = await User.findOne({ email: userData.email });
 
   if (isExist) {
@@ -28,10 +27,10 @@ const createUser = async (userData: IUser): Promise<Partial<IUser>> => {
 };
 
 const loginUser = async (payload: ILoginUser) => {
-  const { phoneNumber, password } = payload;
+  const { email, password } = payload;
   const isUserExist = await User.findOne(
-    { phoneNumber },
-    { phoneNumber: 1, password: 1, role: 1 }
+    { email },
+    { email: 1, password: 1, role: 1 }
   ).lean();
 
   if (!isUserExist) {

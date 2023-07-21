@@ -8,8 +8,57 @@ const createBook = async (BookData: IBook): Promise<IBook> => {
   return createBook;
 };
 
-const getAllBooks = async () => {
-  const getAllBooks = await Book.find({});
+const getAllBooks = async (filters: { searchTerm?: string }) => {
+  const { searchTerm } = filters;
+  console.log(filters);
+
+  const academicSemesterSearchableFields = ['title', 'year'];
+
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      $or: academicSemesterSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: 'i',
+        },
+      })),
+    });
+  }
+  const whereCondition =
+    andConditions.length > 0 ? { $and: andConditions } : {};
+  // const andConditions = [
+  //   {
+  //     $or: [
+  //       {
+  //         title: {
+  //           $regex: searchTerm,
+  //           $options: 'i',
+  //         },
+  //       },
+  //       {
+  //         author: {
+  //           $regex: searchTerm,
+  //           $options: 'i',
+  //         },
+  //       },
+  //       {
+  //         year: {
+  //           $regex: searchTerm,
+  //           $options: 'i',
+  //         },
+  //       },
+  //     ],
+  //   },
+  // ];
+
+  // const whereCondition =
+  //   andConditions.length > 0 ? { $and: andConditions } : {};
+  // console.log(whereCondition);
+
+  const getAllBooks = await Book.find(whereCondition);
+  console.log(getAllBooks);
   return getAllBooks;
 };
 const getSingleBook = async (id: string) => {

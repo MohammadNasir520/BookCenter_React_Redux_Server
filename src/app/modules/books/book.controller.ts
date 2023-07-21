@@ -3,6 +3,7 @@ import { BookService } from './book.service';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import httpStatus from 'http-status';
+import { pick } from '../../../shared/pick';
 
 const createBook = catchAsync(async (req: Request, res: Response) => {
   const userData = req.body;
@@ -17,7 +18,9 @@ const createBook = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllBooks = catchAsync(async (req: Request, res: Response) => {
-  const getAllBooks = await BookService.getAllBooks();
+  const filters = pick(req.query, ['searchTerm']);
+
+  const getAllBooks = await BookService.getAllBooks(filters);
 
   sendResponse(res, {
     success: true,
@@ -42,6 +45,7 @@ const updateBook = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const updatedDAta = req.body;
   const updatedBook = await BookService.updateBook(id, updatedDAta);
+  console.log('ub', updatedDAta, 'ubp', updatedBook);
 
   sendResponse(res, {
     success: true,

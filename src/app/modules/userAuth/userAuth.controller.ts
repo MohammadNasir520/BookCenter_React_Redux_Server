@@ -20,7 +20,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   const UserLoginData = req.body;
   const result = await UserAuthService.loginUser(UserLoginData);
 
-  const { accessToken, refreshToken } = result;
+  const { accessToken, refreshToken, userData } = result;
 
   const cookieOptions = {
     secure: config.env === 'production',
@@ -33,7 +33,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     success: true,
     statusCode: httpStatus.OK,
     message: 'User logged in successfully',
-    data: { accessToken },
+    data: { accessToken, user: userData },
   });
 });
 const refreshToken = catchAsync(async (req: Request, res: Response) => {

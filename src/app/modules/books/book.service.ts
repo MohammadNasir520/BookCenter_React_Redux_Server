@@ -9,16 +9,16 @@ const createBook = async (BookData: IBook): Promise<IBook> => {
 };
 
 const getAllBooks = async (filters: { searchTerm?: string }) => {
-  const { searchTerm } = filters;
+  const { searchTerm, ...filtersData } = filters;
   console.log(filters);
 
-  const academicSemesterSearchableFields = ['title', 'year'];
+  const booksSearchableFields = ['title', 'title', 'author', 'genre'];
 
   const andConditions = [];
 
   if (searchTerm) {
     andConditions.push({
-      $or: academicSemesterSearchableFields.map(field => ({
+      $or: booksSearchableFields.map(field => ({
         [field]: {
           $regex: searchTerm,
           $options: 'i',
@@ -26,6 +26,16 @@ const getAllBooks = async (filters: { searchTerm?: string }) => {
       })),
     });
   }
+
+  // Filters needs $and to fullfill all the conditions
+  if (Object.keys(filtersData).length) {
+    andConditions.push({
+      $and: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+
   const whereCondition =
     andConditions.length > 0 ? { $and: andConditions } : {};
   // const andConditions = [
@@ -58,7 +68,7 @@ const getAllBooks = async (filters: { searchTerm?: string }) => {
   // console.log(whereCondition);
 
   const getAllBooks = await Book.find(whereCondition);
-  console.log(getAllBooks);
+
   return getAllBooks;
 };
 const getSingleBook = async (id: string) => {

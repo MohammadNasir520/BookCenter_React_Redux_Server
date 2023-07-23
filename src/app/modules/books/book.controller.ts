@@ -18,8 +18,8 @@ const createBook = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllBooks = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, ['searchTerm']);
-
+  const filters = pick(req.query, ['searchTerm', 'genre', 'publicationDate']);
+  console.log(req.query);
   const getAllBooks = await BookService.getAllBooks(filters);
 
   sendResponse(res, {

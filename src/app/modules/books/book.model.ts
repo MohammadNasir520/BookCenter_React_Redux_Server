@@ -6,22 +6,27 @@ const UserSchema = new Schema<IBook>(
     title: {
       type: String,
       required: true,
+      trim: true,
     },
     author: {
       type: String,
       required: true,
+      trim: true,
     },
     genre: {
       type: String,
       required: true,
+      trim: true,
     },
     publicationDate: {
-      type: Date,
+      type: String,
       required: true,
+      trim: true,
     },
     image: {
       type: String,
       required: true,
+      trim: true,
     },
   },
   {

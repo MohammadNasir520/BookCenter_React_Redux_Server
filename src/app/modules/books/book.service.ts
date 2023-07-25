@@ -67,7 +67,7 @@ const getAllBooks = async (filters: { searchTerm?: string }) => {
   //   andConditions.length > 0 ? { $and: andConditions } : {};
   // console.log(whereCondition);
 
-  const getAllBooks = await Book.find(whereCondition);
+  const getAllBooks = await Book.find(whereCondition).sort({ createdAt: -1 });
 
   return getAllBooks;
 };

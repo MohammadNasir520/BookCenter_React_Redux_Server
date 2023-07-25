@@ -20,6 +20,7 @@ const getAllReviews = async () => {
 };
 const getSingleReview = async (id: string) => {
   const getAllReviews = await Review.find({ book: id })
+    .sort({ createdAt: -1 })
     .populate('user')
     .populate('book');
 

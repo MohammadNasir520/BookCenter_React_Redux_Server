@@ -4,6 +4,7 @@ import { UserRoutes } from '../modules/user/user.route';
 import { UserAuth } from '../modules/userAuth/userAuth.route';
 import { BookRoutes } from '../modules/books/book.route';
 import { ReviewRoutes } from '../modules/reviews/review.route';
+import { WishListRoutes } from '../modules/wishList/wishList.route';
 
 // app.ts --> index.ts-->user.route.ts
 
@@ -25,6 +26,10 @@ const moduleRoutes = [
   {
     path: '/reviews',
     route: ReviewRoutes,
+  },
+  {
+    path: '/wishlists',
+    route: WishListRoutes,
   },
 ];
 
